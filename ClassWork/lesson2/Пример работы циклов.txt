@@ -1,0 +1,4 @@
+
+ for(in)  Цикл for (var i in colections) возрощает индекc -  Работает во всех браузерах  
+
+ for(of)  Цикл for (var i of colections)  возрощает значения аналог (foreatch) -  Работает только в Google hrome

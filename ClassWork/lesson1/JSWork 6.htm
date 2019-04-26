@@ -1,12 +1,10 @@
 <script>
-    number = prompt("Введите Число:");
-    
-    
-     var und = eval(number);
-    
-    //if (und != undefined)
-	if (typeof und != undefined)
-     {
+    var promtResult = prompt("Введите Число:");
+
+
+    var number = parseInt(promtResult, 10);//10 это десятичная система счисления
+
+    if (!isNaN(number)) {
         if (number == 1) document.write("Единица");
         else if (number == 2) document.write("Двойка");
         else if (number == 3) document.write("Тройка");
@@ -17,11 +15,6 @@
         else if (number == 8) document.write("Восмёрка");
         else if (number == 9) document.write("Девятка");
         else document.write("больше 9ти");
-     }
-    else document.write("Не цифра");//не получается сюда попасть)
-    //
-    
-    
-    
-               
+    } else document.write("Не цифра");
+
 </script>
