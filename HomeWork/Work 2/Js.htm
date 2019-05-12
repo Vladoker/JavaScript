@@ -1,0 +1,126 @@
+<script>
+    //№1
+    //    var age = prompt("Введите возраст:");
+    //    if (age > 0 && age < 12) alert("ребенок");
+    //    else if (age >= 12 && age < 18) alert("подросток");
+    //    else if (age >= 18 && age < 60) alert("взрослый");
+    //    else if (age >= 60 && age < 400) alert("пенсионер");
+
+    //№2
+//    var sim = prompt("Введите число от 0-9:");
+//
+//    switch (sim) {
+//       
+//        case '1':
+//            alert('!');
+//            break;
+//        case '2':
+//            alert('@');
+//            break;
+//        case '3':
+//            alert('#');
+//            break;
+//        case '4':
+//            alert('$');
+//            break;
+//        case '5':
+//            alert('%');
+//            break;
+//        case '6':
+//            alert('^');
+//            break;
+//        case '7':
+//            alert('&');
+//            break;
+//        case '8':
+//            alert('*');
+//            break;
+//        case '9':
+//            alert('(');
+//            break;
+//        case '0':
+//            alert(')');
+//            break;
+//            
+//    }
+
+    
+//№3
+//    var number = prompt("Введите трёхзначное число:");
+//    c = number%10;
+//    b = Math.trunc(number/10%10);
+//    a = Math.trunc(number/100);
+//    alert(a==b||a==c?"есть одинаковые":b==c?"есть одинаковые":"Нету одинаковых");
+    
+//№4
+//    var year = prompt("Введите год:");
+//    alert(year % 4 == 0 && (year % 100 != 0 || year % 400 == 0)?"Высокостный":"Не высокосный");
+    
+    //№5
+//    var number = prompt("Введите Число на проверку Палиндромности:");
+//    var temp = number; //Объявляем временную переменную со значением исходного числа
+//    var b = 0; //Число перевернутое//3
+//    
+//    while (temp != 0)
+//    {
+//          b = b * 10 + temp % 10; //Переворачиваем число по цифрам
+//          temp = Math.trunc(temp/= 10); //Отбрасываем последнюю цифру
+//    }
+//    
+//    alert(number == b?"Полиндром":"Не полинтром");
+    
+    //№6
+//    var USD = prompt("Введите количесво USD для конвертации:");
+//    while (true) {
+//        if (!isNaN(USD))break;
+//        else USD = prompt("Введите количесво USD для конвертации:");
+//    }
+//    var str = prompt("Конвертировать в :").toUpperCase();
+//    const EUR = 0.90;
+//    const UAH = 26.60;
+//    const AZN = 1.70;
+//    
+//    while (true) {
+//        if (str == "EUR"){ alert("Будет: " + USD * EUR + " " + str); break;}
+//        else if (str == "UAH"){ alert("Будет: " + USD * UAH + " " + str); break;}
+//        else if (str == "AZN"){ alert("Будет: " + USD * AZN + " " + str); break;}
+//        else str = prompt("Конвертировать в :").toUpperCase();
+//    }
+    
+    //№7
+//    var summa = prompt("Введите сумму покупки","520");
+//    
+//    if(summa >= 200 && summa < 300) alert("Скидка 3% \n" + (summa - (summa/100) * 3));
+//    else if(summa >= 300 && summa < 500) alert("Скидка 5% \n" + (summa - (summa/100) * 5));
+//    else alert("Скидка 7% \n" + (summa - (summa/100) * 7));
+    
+    //№8
+//    var a = prompt("Длина Окружности"), 
+//        r = prompt("Периметр квадрата");
+//       alert(r <= a / 2 ? "True" : "False");
+    //№9
+//    var value = 0;
+//    var bolean = prompt("Какого цвета солнце ?\n1.Желтое\n2.Белое\n3.Синее");
+//    if(bolean == 2 || bolean.toLowerCase() == "белое") value +=2;
+//    bolean = prompt("Microsoft это ?\n1.Java\n2.JS\n3.С#");
+//    if(bolean == 3 || bolean.toLowerCase() == "c#") value +=2;
+//    bolean = prompt("Swift это ?\n1.IOS\n2.Java\n3.С#");
+//    if(bolean == 1 || bolean.toLowerCase() == "ios") value +=2;
+//    alert("Вы набрали количество балов : " + value);
+    
+    //№10
+    var day = prompt("День");
+    var mounght = prompt("Месяц");
+    var year = prompt("Год");
+    var date = new Date(year, --mounght, day);
+    date.setDate(date.getDate() + 1);//как говорится не стал изобретать велосипед)
+    
+    alert(date.getDate() + "." + (date.getMonth() + 1) + "." + date.getFullYear());
+    
+    
+        
+    
+    
+ 
+    
+</script>
