@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Js</title>
+    <link rel="stylesheet" href="style.css">
+    <script>
+
+
+    </script>
+</head>
+
+<body onload1='document.image1.src="img/3.jpg"'>
+
+    <img class="imageJs" src="img/1.jpg" name="image1" width="750px" height="500px">
+    <form name="form1">
+        <input class="Start" type="button" value="Start Show" name="b1" onclick="fStart();" id="b1">
+        <input disabled class="Next" type="button" value="Stop Show" name="b2" id="b2" onclick="fStop();">
+    </form>
+
+
+<script>
+    var images = new Array("img/1.jpg","img/2.png","img/3.jpg","img/4.jpg","img/5.jpg");
+    var i = 0;
+    function fStart(){
+     document.getElementById("b2").disabled = false;
+     document.getElementById("b1").disabled = true;
+     if (i < images.length -1)i++;
+     else i = 0;
+     document.image1.src = images[i];
+     idTimer = setTimeout("fStart()",1000);
+        
+    }
+    function fStop(){
+     clearTimeout(idTimer);
+    document.getElementById("b1").disabled = false;
+    document.getElementById("b2").disabled = true;
+    }
+    </script>
+</body>
+</html>
