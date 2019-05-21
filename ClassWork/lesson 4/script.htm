@@ -4,17 +4,13 @@
     <meta charset="UTF-8">
     <title>Js</title>
     <link rel="stylesheet" href="style.css">
-    <script>
-
-
-    </script>
 </head>
 
 <body onload1='document.image1.src="img/3.jpg"'>
 
     <img class="imageJs" src="img/1.jpg" name="image1" width="750px" height="500px">
     <form name="form1">
-        <input class="Start" type="button" value="Start Show" name="b1" onclick="fStart();" id="b1">
+        <input class="Start" type="button" value="Start Show" name="b1" id="b1" onclick="fStart();">
         <input disabled class="Next" type="button" value="Stop Show" name="b2" id="b2" onclick="fStop();">
     </form>
 
@@ -25,8 +21,10 @@
     function fStart(){
      document.getElementById("b2").disabled = false;
      document.getElementById("b1").disabled = true;
-     if (i < images.length -1)i++;
-     else i = 0;
+    document.getElementById("b1").value = "Показать";
+        
+        i = i < images.length - 1 ? ++i : 0;
+        
      document.image1.src = images[i];
      idTimer = setTimeout("fStart()",1000);
         
@@ -35,6 +33,7 @@
      clearTimeout(idTimer);
     document.getElementById("b1").disabled = false;
     document.getElementById("b2").disabled = true;
+    document.getElementById("b2").value = "Остановить";
     }
     </script>
 </body>
