@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="calculator">
+        <!-- CALCULATOR FORM -->
+        <form class="calculator__form">
+            <!-- CALCULATOR ROW -->
+            <div class="calculator__row">
+                <input class="calculator__display" id="display" value="0" disabled />
+            </div>
+            <!-- CALCULATOR ROW -->
+            <div class="calculator__row">
+                <button type="button" value="c" class="calculator__key calculator__clear" onclick="window.location.reload()">c</button>
+                <button type="button" value="<--" class="calculator__key calculator__backspace"></button>
+                <button type="button" value="^3" class="calculator__key calculator__power"></button>
+                <button type="button" value="+" class="calculator__key calculator__button" onclick=operator(value)>+</button>
+            </div>
+            <!-- CALCULATOR ROW -->
+            <div class="calculator__row">
+                <button type="button" value="9" class="calculator__key calculator__button" onclick="num(value)">9</button>
+                <button type="button" value="8" class="calculator__key calculator__button" onclick="num(value)">8</button>
+                <button type="button" value="7" class="calculator__key calculator__button" onclick="num(value)">7</button>
+                <button type="button" value="-" class="calculator__key calculator__button" onclick=operator(value)>-</button>
+            </div>
+            <!-- CALCULATOR ROW -->
+            <div class="calculator__row">
+                <button type="button" value="6" class="calculator__key calculator__button" onclick="num(value)">6</button>
+                <button type="button" value="5" class="calculator__key calculator__button" onclick="num(value)">5</button>
+                <button type="button" value="4" class="calculator__key calculator__button" onclick="num(value)">4</button>
+                <button type="button" value="*" class="calculator__key calculator__button" onclick="operator(value)">*</button>
+            </div>
+            <!-- CALCULATOR ROW -->
+            <div class="calculator__row">
+                <button type="button" value="3" class="calculator__key calculator__button" onclick="num(value)">3</button>
+                <button type="button" value="2" class="calculator__key calculator__button" onclick="num(value)">2</button>
+                <button type="button" value="1" class="calculator__key calculator__button" onclick="num(value)">1</button>
+                <button type="button" value="/" class="calculator__key calculator__button" onclick="operator(value)">/</button>
+            </div>
+            <!-- CALCULATOR ROW -->
+            <div class="calculator__row">
+                <button type="button" value="0" class="calculator__key calculator__button" onclick="num(value)">0</button>
+                <button type="button" value="." class="calculator__key calculator__button" onclick="num(value)">.</button>
+                <button type="button" value="=" class="calculator__key calculator__key--equal" onclick="operator(prevOP)">=</button>
+            </div>
+        </form>
+    </div>
+    <script>
+        var flagDigit = 1; //1 - если цыфра первая / 0
+        var point = true;
+        var prevOP = '';
+        var result = '';
+        
+        function num(n) {
+            if (flagDigit) {
+
+                if (n == '.' && point) {
+                    point = false;
+                    display.value += n;
+                } else {
+                    display.value = n;
+                }
+
+
+                if (display.value != '0') {
+                    flagDigit = 0;
+                }
+
+            } else {
+                if (n == '.' && point) {
+                    point = false;
+                    display.value += n;
+                } else if (n != '.') display.value += n;
+            }
+        }
+
+        function operator(y) {
+            flagDigit = 1;
+            result = eval(result + prevOP + display.value);
+            display.value = result;
+            prevOP = y;
+            point = true; // делаем возможность использовать точку ещё раз
+        }
+
+    </script>
+</body>
+
+</html>

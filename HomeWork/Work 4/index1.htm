@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        
+        table {
+            border-spacing: 0px;
+            display: flex;
+            justify-content: center;
+            
+            
+        }
+        th,td {
+            padding: 22px;
+            border: 1px solid black;
+        }
+        
+    </style>
+</head>
+
+<body>
+
+    <script>
+   document.write("<table><tr><th>*</th>");
+        for(i = 1; i <= 3; i++) 
+            {
+                document.write("<th>" + i + "</th>");
+            }
+        
+        document.write("</tr>");
+        
+        for(i = 1; i <= 3; i++)
+            {
+                document.write("<tr><th>" + i + "</th>");
+                
+                for(j = 1; j <= 3; j++)
+                    {
+                        document.write("<td " + (j==i ? "bgcolor = 'yellow'>" + j*i : ">" + j*i) + "</td>");
+                    }
+                
+                
+            }
+        document.write("</table>");
+    </script>
+
+</body>
+
+</html>
