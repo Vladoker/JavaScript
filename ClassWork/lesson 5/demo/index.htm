@@ -17,6 +17,12 @@
             </div>
             <!-- CALCULATOR ROW -->
             <div class="calculator__row">
+                <button type="button" value="+-" class="calculator__key calculator__+-" onclick="display.value *= -1">&pm;</button>
+                <button type="button" value="<--" class="calculator__key calculator__"></button>
+                <button type="button" value="^3" class="calculator__key calculator__"></button>
+                <button type="button" value="+" class="calculator__key calculator__" ></button>
+            </div>
+               <div class="calculator__row">
                 <button type="button" value="c" class="calculator__key calculator__clear" onclick="window.location.reload()">c</button>
                 <button type="button" value="<--" class="calculator__key calculator__backspace"></button>
                 <button type="button" value="^3" class="calculator__key calculator__power"></button>
@@ -46,7 +52,7 @@
             <!-- CALCULATOR ROW -->
             <div class="calculator__row">
                 <button type="button" value="0" class="calculator__key calculator__button" onclick="num(value)">0</button>
-                <button type="button" value="." class="calculator__key calculator__button" onclick="num(value)">.</button>
+                <button type="button" value="." class="calculator__key calculator__button" onclick="Tocika()">.</button> <!-- num(value) -->
                 <button type="button" value="=" class="calculator__key calculator__key--equal" onclick="operator(prevOP)">=</button>
             </div>
         </form>
@@ -82,11 +88,34 @@
 
         function operator(y) {
             flagDigit = 1;
+            if(prevOP == '/' && display.value == '0')
+                {
+                    display.value = "Ошибка деления на ноль"
+                    result = "";
+                    prevOP = "";
+                    return;
+                }
             result = eval(result + prevOP + display.value);
             display.value = result;
             prevOP = y;
             point = true; // делаем возможность использовать точку ещё раз
         }
+        
+        function Tocika() {
+            if (flagDigit)
+                {
+                    display.value = "0.";
+                    flagDigit = 0;
+                    point = false;
+                    return;
+                }
+            if(!point)
+            {
+                display.value += ".";
+                point = true;
+            }
+        }
+        
 
     </script>
 </body>
