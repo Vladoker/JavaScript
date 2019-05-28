@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>js</title>
+    <style>
+        body {
+            margin: auto 0;
+            padding-left: 35%;
+        }
+        img {
+            width: 269px;
+            height: 187px;
+        }
+    </style>
+</head>
+<body>
+   
+   <img id="im1" src="https://cdn8.disney.ru/assets/w269/3c7418ac-e171-46f5-8d65-8aba072ee224.jpg" onmouseover="cengeImage('im2','https://img.gazeta.ru/files3/217/10588217/Zootopia-pic905-895x505-73183.jpg')"
+   onmouseout="cengeImage('im2','http://www.youloveit.ru/uploads/posts/2016-02/1455458273_youloveit_ru_zveropolis_video_kogtyauzer.jpg')">
+   <img id="im2" src="http://www.youloveit.ru/uploads/posts/2016-02/1455458273_youloveit_ru_zveropolis_video_kogtyauzer.jpg" onmouseover="cengeImage('im2','https://cdn.vdmsti.ru/image/2016/2c/1aym15/default-1ov1.jpg')" onmouseout="cengeImage('im2','http://www.youloveit.ru/uploads/posts/2016-02/1455458273_youloveit_ru_zveropolis_video_kogtyauzer.jpg')">
+ 
+   
+    <script>
+        function cengeImage(idImage,newImage){
+            var el = document.getElementById(idImage);
+            el.src = newImage;
+        }
+        //https://cdn.vdmsti.ru/image/2016/2c/1aym15/default-1ov1.jpg
+    </script>
+</body>
+</html>
