@@ -25,23 +25,23 @@
 
     <script>
    document.write("<table><tr><th>*</th>");
-        for(i = 1; i <= 3; i++) 
+        for(i = 1; i <= 9; i++) 
             {
                 document.write("<th>" + i + "</th>");
             }
         
         document.write("</tr>");
         
-        for(i = 1; i <= 3; i++)
+        for(i = 1; i <= 9; i++)
             {
                 document.write("<tr><th>" + i + "</th>");
                 
-                for(j = 1; j <= 3; j++)
+                for(j = 1; j <= 9; j++)
                     {
-                        document.write("<td " + (j==i ? "bgcolor = 'yellow'>" + j*i : ">" + j*i) + "</td>");
+                        document.write("<td " + (j==i ? "bgcolor = 'yellow'>" : ">")+ j*i + "</td>");
                     }
                 
-                
+                document.write("</tr>");
             }
         document.write("</table>");
     </script>
