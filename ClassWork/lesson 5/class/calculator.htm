@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="calculator">
+    <!-- CALCULATOR FORM -->
+    <form class="calculator__form">
+        <!-- CALCULATOR ROW -->
+        <div class="calculator__row">
+            <input class="calculator__display" name='display1' 
+			id="display" type='text' value='0' disabled1 />
+        </div>
+        <!-- CALCULATOR ROW -->
+        <div class="calculator__row">
+            <button type="button" value="c" class="calculator__key calculator__clear"></button>
+            <button type="button" value="<--" class="calculator__key calculator__backspace"></button>
+            <button type="button" value="^3" class="calculator__key calculator__power"></button>
+            <button type="button" value="+" class="calculator__key calculator__button" 
+			onclick='operator(this.value);'>+</button>
+        </div>
+        <!-- CALCULATOR ROW -->
+        <div class="calculator__row">
+            <button type="button" value="9" id='d9' name='digit9' class="calculator__key calculator__button" 
+			onclick='num(this.value);' >9</button>
+            <button type="button" value="8" class="calculator__key calculator__button" 
+			onclick='num(this.value);'>8</button>
+            <button type="button" value="7" class="calculator__key calculator__button" 
+			onclick='num(this.value);'>7</button>
+            <button type="button" value="-" class="calculator__key calculator__button"
+			onclick='operator(this.value);'>-</button>
+        </div>
+        <!-- CALCULATOR ROW -->
+        <div class="calculator__row">
+            <button type="button" value="6" class="calculator__key calculator__button" 
+			onclick='num(this.value);'>6</button>
+            <button type="button" value="5" class="calculator__key calculator__button" 
+			onclick='num(this.value);'>5</button>
+            <button type="button" value="4" class="calculator__key calculator__button" 
+			onclick='num(this.value);'>4</button>
+            <button type="button" value="*" class="calculator__key calculator__button"
+			onclick='operator(this.value);'>*</button>
+        </div>
+        <!-- CALCULATOR ROW -->
+        <div class="calculator__row">
+            <button type="button" value="3" class="calculator__key calculator__button" 
+			onclick='num(this.value);'>3</button>
+            <button type="button" value="2" class="calculator__key calculator__button" 
+			onclick='num(this.value);'>2</button>
+            <button type="button" value="1" class="calculator__key calculator__button" 
+			onclick='num(this.value);'>1</button>
+            <button type="button" value="/" class="calculator__key calculator__button" onclick='operator(this.value);'>/</button>
+        </div>
+        <!-- CALCULATOR ROW -->
+        <div class="calculator__row">
+            <button type="button" value="0" class="calculator__key calculator__button" 
+			onclick='num(value);'>0</button>
+            <button type="button" value="plusminus" class="calculator__key calculator__button"
+			onclick='plusMinus();'>&pm; </button>
+            <button type="button" value="." class="calculator__key calculator__button"
+			onclick='tochka()'>.</button>
+			<button type="button" value="=" class="calculator__key calculator__button"></button>
+        </div>
+		<input type='submit'>
+    </form>
+</div>
+
+<script>
+var flagFirstDigit=1; //1 - first, 0 - not first
+var flagTochka=0; //1 - v chisle tochka esti, 0 - v chisle net tochki
+var result='';
+var prevOperator='';
+
+function num(x){
+if (x==0 && display.value==0) return;
+if (flagFirstDigit || (!flagFirstDigit && display.value=="0")){
+ document.getElementById('display').value=x;
+ flagFirstDigit=0; 
+ }
+/* ***другие варианты обработки нуля!!!***
+  else if(display.value==0){
+ document.getElementById('display').value=x;
+ //flagFirstDigit=1; num(x);
+ }*/
+else {
+ document.getElementById('display').value+=x;
+//display.value+=x;
+}
+ 
+}
+
+function operator(y){
+	flagFirstDigit=1;
+	if(prevOperator == '/' && display.value == '0') {
+	display.value = "Деление на 0";
+	result = "";
+	prevOperator = "";
+	return;
+	}
+	result=eval(result+prevOperator+document.getElementById('display').value);
+	document.getElementById('display').value=result;
+	prevOperator=y;
+	
+}
+
+function plusMinus(){
+	display.value *= -1;
+}
+
+function tochka(){
+	if (flagFirstDigit){
+	document.getElementById('display').value="0.";
+	flagTochka=0;
+	flagFirstDigit=0;
+	return;
+	}
+	if (!flagTochka){
+	document.getElementById('display').value+=".";
+	flagTochka=1;
+	}
+}
+	
+	
+
+
+
+</script>
+</body>
+</html>

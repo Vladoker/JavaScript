@@ -18,14 +18,14 @@
             <!-- CALCULATOR ROW -->
             <div class="calculator__row">
                 <button type="button" value="+-" class="calculator__key calculator__+-" onclick="display.value *= -1">&pm;</button>
-                <button type="button" value="<--" class="calculator__key calculator__"></button>
-                <button type="button" value="^3" class="calculator__key calculator__"></button>
-                <button type="button" value="+" class="calculator__key calculator__"></button>
+                <button type="button" value="x2" class="calculator__key calculator__" onclick='kvadrat()'>x&sup2;</button>
+                <button type="button" value="^2" class="calculator__key calculator__" onclick=sqroot()>&Sqrt;</button>
+                <button type="button" value="+" class="calculator__key calculator__" onclick=obrt()>1/x</button>
             </div>
             <div class="calculator__row">
                 <button type="button" value="c" class="calculator__key calculator__clear" onclick="window.location.reload()">c</button>
-                <button type="button" value="<--" class="calculator__key calculator__backspace"></button>
-                <button type="button" value="^3" class="calculator__key calculator__power"></button>
+                <button type="button" value="CE" class="calculator__key calculator__CE" onclick="display.value = display.defaultValue">CE</button>
+                <button type="button" value="Back" class="calculator__key calculator__power" onclick= "Back()">B</button>
                 <button type="button" value="+" class="calculator__key calculator__button" onclick=operator(value)>+</button>
             </div>
             <!-- CALCULATOR ROW -->
@@ -53,29 +53,31 @@
             <div class="calculator__row">
                 <button type="button" value="0" class="calculator__key calculator__button" onclick="num(value)">0</button>
                 <button type="button" value="." class="calculator__key calculator__button" onclick="Tocika()">.</button> <!-- num(value) -->
-                <button type="button" value="=" class="calculator__key calculator__key--equal" onclick="operator(prevOP)">=</button>
+                <button type="button" value="=" class="calculator__key calculator__key--equal" onclick="ravno()">=</button>
             </div>
         </form>
     </div>
     <script>
-        var flagDigit = true;
-        var point = true;
+        var flagDigit = true;//если это первая цифра
+        var point = false;
         var prevOP = '';
         var result = '';
 
         function num(n) {
-            if (flagDigit) {
-                flagDigit = false;
-                display.value = n;
-                if (n == '0')flagDigit = true;
-            } 
-            else {
-                display.value += n;
+           if (n == 0 && display.value == '0') return;
+           if (flagDigit || (!flagDigit && display.value=="0")){
+            document.getElementById('display').value = n;
+            flagDigit = false; 
             }
+            
+            else {
+            document.getElementById('display').value += n;
+
+              }
         }
 
         function operator(y) {
-            flagDigit = true;
+           
             if (prevOP == '/' && display.value == '0') {
                 display.value = "Ошибка деления на ноль"
                 result = "";
@@ -85,18 +87,80 @@
             result = eval(result + prevOP + display.value);
             display.value = result;
             prevOP = y;
-            point = true; // делаем возможность использовать точку ещё раз
+             point = false;
+            flagDigit = true;
+           
         }
 
         function Tocika() {
-            if (point) {
-                point = false;
-                display.value = flagDigit ? '0.': display.value += '.';
-            } 
-            else {
-                num(n);
-            }
+           if (flagDigit){
+	       document.getElementById('display').value="0.";
+	       point = true;
+	       flagDigit = false;
+	       return;
+	       }
+	       if (!point){
+	       document.getElementById('display').value+=".";
+	       point = true;
+	       }
+            
         }
+        
+        function Back() {
+            var del = display.value[display.value.length - 1];
+            display.value = display.value.substr(0, display.value.length -1);
+           
+            if (display.value.length == 0) display.value = '0';
+            else if(del == '.') point = false;
+            
+        }
+        
+        function kvadrat() {
+            display.value *= display.value;
+        }
+        
+        function sqroot() {
+            if(display.value >= 0){
+               display.value = Math.sqrt(display.value);
+                flagDigit = true;
+            }
+            else {
+                display.value = '0';
+                flagDigit = true;
+               point = false;
+            }
+            
+            function procent() {
+                if(result == '')result = 0;
+                display.value = result / 100 * display.value;
+                flagDigit = true;
+                point = false;
+                
+            }
+            
+            function obrt() {
+                
+                flagDigit = true;
+                point = false;
+                if(display.value != 0){
+                    display.value = 1/display.value;
+                }
+                else display.value = '0';
+                
+            }
+            
+            function ravno() {
+                
+               display.value 
+            }
+            
+            
+        
+        
+        
+       
+        
+        
 
     </script>
 </body>
