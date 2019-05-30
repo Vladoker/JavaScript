@@ -20,9 +20,9 @@
                 <button type="button" value="+-" class="calculator__key calculator__+-" onclick="display.value *= -1">&pm;</button>
                 <button type="button" value="<--" class="calculator__key calculator__"></button>
                 <button type="button" value="^3" class="calculator__key calculator__"></button>
-                <button type="button" value="+" class="calculator__key calculator__" ></button>
+                <button type="button" value="+" class="calculator__key calculator__"></button>
             </div>
-               <div class="calculator__row">
+            <div class="calculator__row">
                 <button type="button" value="c" class="calculator__key calculator__clear" onclick="window.location.reload()">c</button>
                 <button type="button" value="<--" class="calculator__key calculator__backspace"></button>
                 <button type="button" value="^3" class="calculator__key calculator__power"></button>
@@ -58,64 +58,45 @@
         </form>
     </div>
     <script>
-        var flagDigit = 1; //1 - если цыфра первая / 0
+        var flagDigit = true;
         var point = true;
         var prevOP = '';
         var result = '';
-        
+
         function num(n) {
             if (flagDigit) {
-
-                if (n == '.' && point) {
-                    point = false;
-                    display.value += n;
-                } else {
-                    display.value = n;
-                }
-
-
-                if (display.value != '0') {
-                    flagDigit = 0;
-                }
-
-            } else {
-                if (n == '.' && point) {
-                    point = false;
-                    display.value += n;
-                } else if (n != '.') display.value += n;
+                flagDigit = false;
+                display.value = n;
+                if (n == '0')flagDigit = true;
+            } 
+            else {
+                display.value += n;
             }
         }
 
         function operator(y) {
-            flagDigit = 1;
-            if(prevOP == '/' && display.value == '0')
-                {
-                    display.value = "Ошибка деления на ноль"
-                    result = "";
-                    prevOP = "";
-                    return;
-                }
+            flagDigit = true;
+            if (prevOP == '/' && display.value == '0') {
+                display.value = "Ошибка деления на ноль"
+                result = "";
+                prevOP = "";
+                return;
+            }
             result = eval(result + prevOP + display.value);
             display.value = result;
             prevOP = y;
             point = true; // делаем возможность использовать точку ещё раз
         }
-        
+
         function Tocika() {
-            if (flagDigit)
-                {
-                    display.value = "0.";
-                    flagDigit = 0;
-                    point = false;
-                    return;
-                }
-            if(!point)
-            {
-                display.value += ".";
-                point = true;
+            if (point) {
+                point = false;
+                display.value = flagDigit ? '0.': display.value += '.';
+            } 
+            else {
+                num(n);
             }
         }
-        
 
     </script>
 </body>
