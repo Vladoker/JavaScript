@@ -14,11 +14,25 @@
             <input class="calculator__display" name='display1' 
 			id="display" type='text' value='0' disabled1 />
         </div>
-        <!-- CALCULATOR ROW -->
+         <!-- CALCULATOR ROW -->
         <div class="calculator__row">
-            <button type="button" value="c" class="calculator__key calculator__clear"></button>
-            <button type="button" value="<--" class="calculator__key calculator__backspace"></button>
-            <button type="button" value="^3" class="calculator__key calculator__power"></button>
+            <button type="button" value="procent" class="calculator__key calculator__clear"
+			onclick='procent()'>%</button>
+            <button type="button" value="sqroot" class="calculator__key calculator__backspace"
+			onclick='sqroot();'>&Sqrt;</button>
+            <button type="button" value="kvadrat" class="calculator__key calculator__power"
+			onclick='kvadrat()'>x&sup2;</button>
+            <button type="button" value="obratnoe" class="calculator__key calculator__button" 
+			onclick='obratnoe();'>1/x</button>
+        </div>
+		<!-- CALCULATOR ROW -->
+        <div class="calculator__row">
+            <button type="button" value="ce" class="calculator__key calculator__clear"
+			onclick='ce();'>CE</button>
+            <button type="button" value="c" class="calculator__key calculator__backspace"
+			onclick='c();'>C</button>
+            <button type="button" value="backspace" class="calculator__key calculator__power"
+			onclick='backspace();'>&lArr;</button>
             <button type="button" value="+" class="calculator__key calculator__button" 
 			onclick='operator(this.value);'>+</button>
         </div>
@@ -62,7 +76,8 @@
 			onclick='plusMinus();'>&pm; </button>
             <button type="button" value="." class="calculator__key calculator__button"
 			onclick='tochka()'>.</button>
-			<button type="button" value="=" class="calculator__key calculator__button"></button>
+			<button type="button" value="=" class="calculator__key calculator__button"
+			onclick='ravno()'>=</button>
         </div>
 		<input type='submit'>
     </form>
@@ -75,7 +90,7 @@ var result='';
 var prevOperator='';
 
 function num(x){
-if (x==0 && display.value==0) return;
+if (x==0 && display.value=="0") return;
 if (flagFirstDigit || (!flagFirstDigit && display.value=="0")){
  document.getElementById('display').value=x;
  flagFirstDigit=0; 
@@ -92,8 +107,14 @@ else {
  
 }
 
+function ravno(){
+	//operator('=');
+	
+}
+
 function operator(y){
 	flagFirstDigit=1;
+	flagTochka=0;
 	if(prevOperator == '/' && display.value == '0') {
 	display.value = "Деление на 0";
 	result = "";
@@ -110,17 +131,82 @@ function plusMinus(){
 	display.value *= -1;
 }
 
+function kvadrat(){
+	display.value *= display.value;
+}
+
+function sqroot(){
+	var str=display.value;
+	if (str>=0){
+	display.value = Math.sqrt(str);
+	flagFirstDigit=1;
+	}
+	else  {
+	display.value = "Invalid input‬";
+	flagFirstDigit=1;
+	flagTochka=0;
+	}
+	
+}
+
+function procent(){
+	var str=display.value;
+	if (result==''){result==0;}
+	display.value = result/100*str;
+	flagFirstDigit=1;
+	flagTochka=0;
+}
+
+function obratnoe(){
+	var str=display.value;
+	if (str!=0){
+	display.value = 1/str;
+	}
+	else  {
+	display.value = "Деление на 0";
+	}
+	flagFirstDigit=1;
+	flagTochka=0;
+}
+
+function ce(){
+	display.value = display.defaultValue;
+	flagFirstDigit=1; //1 - first, 0 - not first
+	flagTochka=0; //1 - v chisle tochka esti, 0 - v chisle net tochki
+}
+
+function c(){
+	ce();
+	result='';
+	prevOperator='';
+}
+
+function backspace(){
+	str=display.value;
+	strLength=str.length;
+	if (strLength>1){
+	display.value = str.substring(0,strLength-1);
+	if (str.charAt(strLength-1)=='.') {
+	flagTochka=0; //1 - v chisle tochka esti, 0 - v chisle net tochki}
+	}
+	}
+	else {
+	ce();
+	}
+}
+
 function tochka(){
 	if (flagFirstDigit){
 	document.getElementById('display').value="0.";
-	flagTochka=0;
+	flagTochka=1;
 	flagFirstDigit=0;
 	return;
 	}
 	if (!flagTochka){
 	document.getElementById('display').value+=".";
-	flagTochka=1;
+    flagTochka=1;
 	}
+
 }
 	
 	
