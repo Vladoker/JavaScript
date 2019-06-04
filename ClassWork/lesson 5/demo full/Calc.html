@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="calculator">
+        <!-- CALCULATOR FORM -->
+        <form class="calculator__form" name="fm1">
+            <!-- CALCULATOR ROW -->
+            <div class="calculator__row">
+                <input name="disp" class="calculator__display" id="display" value="0" />
+            </div>
+            <!-- CALCULATOR ROW -->
+            <div class="calculator__row">
+                <button type="button" class="calculator__key calculator__button" value="%" onclick="procent()">%</button>
+                <button type="button" value="√" class="calculator__key calculator__button" onclick="sqroot()">√</button>
+                <button type="button" value="x2" class="calculator__key calculator__button" onclick="display.value *= 2;">x&sup2;</button>
+                <button type="button" class="calculator__key calculator__button" value="" onclick="display.value = (1/display.value);">1/x</button>
+            </div>
+            <!-- CALCULATOR ROW -->
+            <div class="calculator__row">
+                <button type="button" value="ce" class="calculator__key calculator__button" onclick="ce()">сe</button>
+                <button type="button" value="c" class="calculator__key calculator__button" onclick="c();">c</button>
+                <button type="button" value="" class="calculator__key calculator__button" onclick="display.value *= -1;">&pm;</button>
+                <button type="button" class="calculator__key calculator__button" value="+" onclick="operator(this.value);">+</button>
+            </div>
+            <!-- CALCULATOR ROW -->
+            <div class="calculator__row">
+                <button type="button" value="9" class="calculator__key calculator__button" onclick="num(this.value);">9</button>
+                <button type="button" value="8" class="calculator__key calculator__button" onclick="num(this.value);">8</button>
+                <button type="button" value="7" class="calculator__key calculator__button" onclick="num(this.value);">7</button>
+                <button type="button" class="calculator__key calculator__button" value="-" onclick="operator(this.value);">-</button>
+            </div>
+            <!-- CALCULATOR ROW -->
+            <div class="calculator__row">
+                <button type="button" value="6" class="calculator__key calculator__button" onclick="num(this.value);">6</button>
+                <button type="button" value="5" class="calculator__key calculator__button" onclick="num(this.value);">5</button>
+                <button type="button" value="4" class="calculator__key calculator__button" onclick="num(this.value);">4</button>
+                <button type="button" class="calculator__key calculator__button" value="*" onclick="operator(this.value);">*</button>
+            </div>
+            <!-- CALCULATOR ROW -->
+            <div class="calculator__row">
+                <button type="button" value="3" class="calculator__key calculator__button" onclick="num(this.value);">3</button>
+                <button type="button" value="2" class="calculator__key calculator__button" onclick="num(this.value);">2</button>
+                <button type="button" value="1" class="calculator__key calculator__button" onclick="num(this.value);">1</button>
+                <button type="button" class="calculator__key calculator__button" value="/" onclick="operator(this.value);">/</button>
+            </div>
+            <!-- CALCULATOR ROW -->
+            <div class="calculator__row">
+                <button type="button" value="0" class="calculator__key calculator__button" onclick="num(this.value);">0</button>
+                <button type="button" value="." class="calculator__key calculator__button" onclick="Tochka()">.</button>
+                <button type="button" value="=" class="calculator__key calculator__key--equal" onclick="equal()">=</button>
+            </div>
+            <!--            <input type="submit">-->
+        </form>
+    </div>
+    <script>
+        var flagFirstDigit = 1; // цифра 1 замена, цифра 0 добавление
+        var result = '';
+        var prevOP = '';
+        var flagTochka = 0;
+        var lastAction = '';
+        var flagEqual = 0;
+
+        function num(x) {
+            if (x == 0 && display.value == "0") return;
+            if (flagFirstDigit || (!flagFirstDigit && display.value == "0")) {
+                display.value = x;
+                flagFirstDigit = 0;
+            }
+            /* ***другие варианты обработки нуля!!!***
+              else if(display.value==0){
+             document.getElementById('display').value=x;
+             //flagFirstDigit=1; num(x);
+             }*/
+            else {
+                display.value += x;
+                //display.value+=x;
+            }  
+        }
+
+        function Tochka() {
+            if (flagFirstDigit) {
+                display.value = "0.";
+                flagTochka = 1;
+                flagFirstDigit = 0;
+                return;
+            }
+            if (!flagTochka) {
+                display.value += ".";
+                flagTochka = 1;
+            }
+        }
+
+        function bsp() {
+            var str = display.value;
+            var strLastIndex = str.length - 1;
+            display.value = str.substring(0, strLastIndex);
+            if (strLastIndex == 0) ce();
+            if (str.charAt(strLastIndex) == '.') flagTochka = 0;
+        }
+
+        function ce() {
+            display.value = display.defaultValue;
+            flagTochka = 0;
+            flagFirstDigit = 1;
+        }
+
+        function c() {
+            ce();
+            result = '';
+            prevOP = '';
+        }
+
+        function sqroot() {
+            var str1 = display.value;
+            if (str1 <= 0) {
+                display.value = 'Invalid input';
+                flagFirstDigit = 1;
+                flagTochka = 0;
+            } else {
+                display.value = Math.sqrt(str1);
+            }
+        }
+
+        function procent() {
+            var str2 = display.value;
+            if (result == '') result = 0;
+            display.value = result / 100 * str2;
+        }
+       
+        function operator(y) {
+            flagFirstDigit = 1;
+            flagEqual = 0;
+            flagTochka = 0;
+            if (prevOP == '/' && display.value == 0) {
+                result = '';
+                prevOP = '';
+                display.value = 'Деление на 0';
+            }
+            result = eval(result + prevOP + display.value);
+            display.value = result;
+            prevOP = y;
+        }
+        
+         function equal() {
+            if (flagEqual == 0) {
+                lastAction =  prevOP + display.value;
+                display.value = eval(result + lastAction);
+                flagEqual = 1;
+                result = '';
+                prevOP = '';
+            } else {
+                display.value = eval(display.value + lastAction);
+            }
+        }
+
+
+    </script>>
+</body>
+
+</html>

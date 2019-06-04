@@ -88,6 +88,7 @@ var flagFirstDigit=1; //1 - first, 0 - not first
 var flagTochka=0; //1 - v chisle tochka esti, 0 - v chisle net tochki
 var result='';
 var prevOperator='';
+var flagEqual = 0;
 
 function num(x){
 if (x==0 && display.value=="0") return;
@@ -108,11 +109,24 @@ else {
 }
 
 function ravno(){
-	//operator('=');
-	
+    if (flagEqual == 0){
+        lastAction = prevOperator + dysplay.value;
+        display.value = eval(result + lastAction);
+        flagEqual = 1;
+        result = '';
+        prevOperator = '';
+        flagFirstDigit = 1;
+        flagTochka = 0;
+    }
+    else {
+       display.value = eval(dysplay.value + lastAction);
+    }
+   
+    
 }
 
 function operator(y){
+    flagEqual = 0;
 	flagFirstDigit=1;
 	flagTochka=0;
 	if(prevOperator == '/' && display.value == '0') {
@@ -124,6 +138,7 @@ function operator(y){
 	result=eval(result+prevOperator+document.getElementById('display').value);
 	document.getElementById('display').value=result;
 	prevOperator=y;
+    
 	
 }
 
