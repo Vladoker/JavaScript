@@ -21,6 +21,12 @@
         #reset{
             float: left;
         }
+        span {
+            margin-left: 20px;
+            color: green;
+            font-family: sans-serif;
+        }
+        
         
     </style>
 </head>
@@ -45,8 +51,10 @@
             
             if(NAME.test(f.name.value))
                 name_span.innerHTML = 'ОК';
-            else
+            else{
                 name_span.innerHTML = 'Error';
+                name_span.style.color = "red";
+            }
         }
     </script>
 </body>
