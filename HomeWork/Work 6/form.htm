@@ -23,7 +23,6 @@
         }
         span {
             margin-left: 20px;
-            color: green;
             font-family: sans-serif;
         }
         
@@ -33,13 +32,13 @@
 <body>
     <form action="">
         
-            <p><label for="name">Name</label> <input type="text" id="name" required><span id="name_span"></span></p>
-            <p><label for="login">Login</label> <input type="text" id="login"></p>
-            <p><label for="pass">Password</label> <input type="password" id="pass"></p>
-            <p><label for="pass2">Confirmp password</label> <input type="password" id="pass2"></p>
-            <p><label for="email">Email</label> <input type="email" id="email"></p>
-            <p><label for="phone">Phone</label> <input type="tel" id="phone"></p>
-            <p><label for="">You message</label> <textarea rows="2" cols="30" name="text" id="message"></textarea></p>
+            <p><label for="name">Name</label> <input type="text" id="name" required><span id="sp1"></span></p>
+            <p><label for="login">Login</label> <input type="text" id="login"><span id="sp2"></span></p>
+            <p><label for="pass">Password</label> <input type="password" id="pass"><span id="sp3"></span></p>
+            <p><label for="pass2">Confirmp password</label> <input type="password" id="pass2"><span id="sp4"></span></p>
+            <p><label for="email">Email</label> <input type="email" id="email"><span id="sp5"></span></p>
+            <p><label for="phone">Phone</label> <input type="tel" id="phone"><span id="sp6"></span></p>
+            <p><label for="">You message</label> <textarea rows="2" cols="30" name="text" id="message"></textarea><span id="sp7"></span></p>
             <p><input type="button" value="Сброс" id="reset"></p>
             
             <input type="button" value="Check Form" id="chech"  onclick="validForm(this.form)">
@@ -47,13 +46,17 @@
     
     <script>
         function validForm(f){
-            var NAME = /^[A-Z][\w]+/g;
+            var NAME = /^[A-Z][0-9 ]+$/;
+            var PASS = /^[A-Za-z0-9][.-_]/;
             
             if(NAME.test(f.name.value))
-                name_span.innerHTML = 'ОК';
+                {
+                sp1.style.color = "green";
+                sp1.innerHTML = 'ОК';
+                }
             else{
-                name_span.innerHTML = 'Error';
-                name_span.style.color = "red";
+                sp1.style.color = "red";
+                sp1.innerHTML = 'Error';
             }
         }
     </script>
