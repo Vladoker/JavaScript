@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>RegEx</title>
+    <style>
+        form {
+            clear: both;
+            text-align: right;
+            float: left;
+            line-height: 10px;
+        }
+        label {
+            float: left;
+            padding-right: 5px;
+            margin-top: 5px;
+        }
+        textarea {
+            resize: none;
+        }
+        #reset{
+            float: left;
+        }
+        
+    </style>
+</head>
+<body>
+    <form action="">
+        
+            <p><label for="name">Name</label> <input type="text" id="name" required><span id="name_span"></span></p>
+            <p><label for="login">Login</label> <input type="text" id="login"></p>
+            <p><label for="pass">Password</label> <input type="password" id="pass"></p>
+            <p><label for="pass2">Confirmp password</label> <input type="password" id="pass2"></p>
+            <p><label for="email">Email</label> <input type="email" id="email"></p>
+            <p><label for="phone">Phone</label> <input type="tel" id="phone"></p>
+            <p><label for="">You message</label> <textarea rows="2" cols="30" name="text" id="message"></textarea></p>
+            <p><input type="button" value="Сброс" id="reset"></p>
+            
+            <input type="button" value="Check Form" id="chech"  onclick="validForm(this.form)">
+    </form>
+    
+    <script>
+        function validForm(f){
+            var NAME = /^[A-Z][\w]+/g;
+            
+            if(NAME.test(f.name.value))
+                name_span.innerHTML = 'ОК';
+            else
+                name_span.innerHTML = 'Error';
+        }
+    </script>
+</body>
+</html>
