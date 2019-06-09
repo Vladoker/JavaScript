@@ -1,0 +1,55 @@
+<style>
+.error_text {
+	color: red;
+}
+</style>
+<form>
+Name: <input name='name'> <span id='name_error' class='error_text'></span>
+<br>
+Login: <input name='login'> <span id='login_error' class='error_text'></span>
+<br>
+<input type='button' name='b1' value='Check form'
+onclick='checkForm(this.form)'>
+
+</form>
+
+<script>
+var re_name = /^[A-Z][a-z0-9]+([ -][A-Z][a-z0-9]+){0,4}$/;
+var re_login = /^[A-Za-z0-9]+([._-]?[A-Za-z0-9])*$/; //
+
+function checkForm(f){
+ name_value=f.name.value;
+ name_err='';
+ login_value=f.login.value;
+ login_err='';
+ 
+ if (re_login.test(login_value)){
+	 //alert('Login is OK');
+	 login_err='';
+ }
+ else {
+	login_err="Login is wrong";
+	//f.login.focus();
+	f.login.select();
+	}
+	login_error.innerHTML=login_err;
+	
+ 
+ if (re_name.test(name_value)){
+	 //alert('Name is OK');
+	 name_err="";
+ }
+ else {
+	name_err="Name is wrong";
+	//f.name.focus();
+	f.name.select();
+ }
+	name_error.innerHTML=name_err;
+
+
+
+ 
+}
+
+
+</script>

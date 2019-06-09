@@ -3,61 +3,162 @@
 <head>
     <meta charset="UTF-8">
     <title>RegEx</title>
-    <style>
-        form {
+    <style>   
+        
+        .field {
             clear: both;
             text-align: right;
-            float: left;
-            line-height: 10px;
+            line-height: 25px;
+            
         }
         label {
+            font-size: 16px;
+            font-family: sans-serif;
             float: left;
-            padding-right: 5px;
-            margin-top: 5px;
+            padding-right: 10px;
+        }
+        form {
+            float: left;
         }
         textarea {
             resize: none;
         }
-        #reset{
+        #reset {
             float: left;
+            height: 30px;
+            background: rgba(255, 0, 0, 0.29);
         }
-        span {
-            margin-left: 20px;
-            font-family: sans-serif;
+        #chech {
+            float: right;
+            height: 30px;
+            background: rgba(0, 59, 255, 0.29);
         }
+    
+       
         
         
     </style>
 </head>
 <body>
     <form action="">
-        
-            <p><label for="name">Name</label> <input type="text" id="name" required><span id="sp1"></span></p>
-            <p><label for="login">Login</label> <input type="text" id="login"><span id="sp2"></span></p>
-            <p><label for="pass">Password</label> <input type="password" id="pass"><span id="sp3"></span></p>
-            <p><label for="pass2">Confirmp password</label> <input type="password" id="pass2"><span id="sp4"></span></p>
-            <p><label for="email">Email</label> <input type="email" id="email"><span id="sp5"></span></p>
-            <p><label for="phone">Phone</label> <input type="tel" id="phone"><span id="sp6"></span></p>
-            <p><label for="">You message</label> <textarea rows="2" cols="30" name="text" id="message"></textarea><span id="sp7"></span></p>
-            <p><input type="button" value="Сброс" id="reset"></p>
-            
-            <input type="button" value="Check Form" id="chech"  onclick="validForm(this.form)">
+   
+       <div class="field">
+           <label for="name">Name</label>
+           <input type="text" id="name">
+           <span id="name_s"></span>
+        </div>
+       <div class="field">
+           <label for="login">Login</label>
+           <input type="text" id="login">
+           <span id="login_s"></span>
+       </div>
+       <div class="field">
+           <label for="pass">Password</label>
+           <input type="password" id="pass">
+           <span id="password_s"></span>
+       </div>
+       <div class="field">
+           <label for="pass2">Confirm password</label>
+           <input type="password" id="pass2">
+           <span id="password2_s"></span>
+       </div>
+       <div class="field">
+           <label for="email">Email</label>
+           <input type="email" id="email">
+           <span id="email_s"></span>
+       </div>
+       <div class="field">
+           <label for="phone">Phone</label>
+           <input type="tel" id="phone">
+           <span id="number_s"></span>
+       </div>
+       <div class="field">
+           <label for="message">You message</label>
+           <textarea rows="2" cols="30" name="text" id="message"></textarea>
+           <span id="message_s"></span>
+       </div>
+       <div class="field">
+           <input type="button" value="Сброс" id="reset">
+       </div>
+       <div class="filed">
+           <input type="button" value="Check Form" id="chech" onclick="validForm(this.form)">
+       </div>
+       
+  
     </form>
     
     <script>
         function validForm(f){
-            var NAME = /^[A-Z][0-9 ]+$/;
-            var PASS = /^[A-Za-z0-9][.-_]/;
+            var NAME = /^[A-Z][A-Za-z0-9 ]*$/; 
+            var LOGIN = /^[A-Za-z0-9]([-_.]?[A-Za-z0-9]){4,14}$/; // от 5 до 15
+            var PASSWORD = /^[\!\@\#\$\%\^\&\*\(\)\_\+\-\=\\\/\?\<\>\.\w]{8,}$/;
+            var EMAIL = /^([A-Za-z0-9]{3,}[.-_]?){1,4}@[a-z]+.[a-z]{2,4}$/;
+            var PHONE = /^[+]?([(]\d{3}[)]|\d{3})[1-9]{8}$/;
+            var PHONE2 = /^(079|078|069|068)\d{6}$/;
             
-            if(NAME.test(f.name.value))
-                {
-                sp1.style.color = "green";
-                sp1.innerHTML = 'ОК';
+            if(PHONE.test(f.phone.value) || PHONE2.test(f.phone.value)){
+                 number_s.style.color = "green";
+                 number_s.innerHTML = 'ОК_phone';
+            }
+            else{
+                number_s.style.color = "red";
+                number_s.innerHTML = 'Error_phone';
+                f.phone.select();
+            }
+            
+            
+            if(EMAIL.test(f.email.value)){
+                 email_s.style.color = "green";
+                 email_s.innerHTML = 'ОК_email';
+            }
+            else{
+                email_s.style.color = "red";
+                email_s.innerHTML = 'Error_email';
+                f.email.select();
+            }
+            
+            if(f.pass2.value == f.pass.value && f.pass2.value.length > 5){
+                 password2_s.style.color = "green";
+                 password2_s.innerHTML = 'ОК_pass2';
+            }
+            else{
+                password2_s.style.color = "red";
+                password2_s.innerHTML = 'Error_pass2';
+                f.pass2.select();
+            }
+            
+            if(PASSWORD.test(f.pass.value)){
+                password_s.style.color = "green";
+                password_s.innerHTML = 'ОК_pass';
+            }
+            else{
+                password_s.style.color = "red";
+                password_s.innerHTML = 'Error_pass';
+                f.pass.select();
+            }
+            
+            if(LOGIN.test(f.login.value) && f.login.value.length < 16){ // включительно 15тый символ
+                login_s.style.color = "green";
+                login_s.innerHTML = 'ОК_login';
+            }
+            else {
+                login_s.style.color = "red";
+                login_s.innerHTML = 'Error_login';
+                f.login.select();
+            }
+            if(NAME.test(f.name.value)){
+                name_s.style.color = "green";
+                name_s.innerHTML = 'ОК';
                 }
             else{
-                sp1.style.color = "red";
-                sp1.innerHTML = 'Error';
+                name_s.style.color = "red";
+                name_s.innerHTML = 'Error';
+                f.name.select();
             }
+            
+            
+            
+            
         }
     </script>
 </body>
