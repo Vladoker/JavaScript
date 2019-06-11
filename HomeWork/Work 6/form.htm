@@ -44,22 +44,22 @@
    
        <div class="field">
            <label for="name">Name</label>
-           <input type="text" id="name">
+           <input type="text" id="name" required>
            <span id="name_s"></span>
         </div>
        <div class="field">
            <label for="login">Login</label>
-           <input type="text" id="login">
+           <input type="text" id="login" required>
            <span id="login_s"></span>
        </div>
        <div class="field">
            <label for="pass">Password</label>
-           <input type="password" id="pass">
+           <input type="password" id="pass" required>
            <span id="password_s"></span>
        </div>
        <div class="field">
            <label for="pass2">Confirm password</label>
-           <input type="password" id="pass2">
+           <input type="password" id="pass2" required>
            <span id="password2_s"></span>
        </div>
        <div class="field">
@@ -69,16 +69,16 @@
        </div>
        <div class="field">
            <label for="phone">Phone</label>
-           <input type="tel" id="phone">
+           <input type="tel" id="phone" required>
            <span id="number_s"></span>
        </div>
        <div class="field">
            <label for="message">You message</label>
-           <textarea rows="2" cols="30" name="text" id="message"></textarea>
+           <textarea rows="2" cols="30" name="text" id="message" required></textarea>
            <span id="message_s"></span>
        </div>
        <div class="field">
-           <input type="button" value="Сброс" id="reset">
+           <input type="button" value="Сброс" id="reset" onclick="location.reload()">
        </div>
        <div class="filed">
            <input type="button" value="Check Form" id="chech" onclick="validForm(this.form)">
@@ -95,6 +95,20 @@
             var EMAIL = /^([A-Za-z0-9]{3,}[.-_]?){1,4}@[a-z]+.[a-z]{2,4}$/;
             var PHONE = /^[+]?([(]\d{3}[)]|\d{3})[1-9]{8}$/;
             var PHONE2 = /^(079|078|069|068)\d{6}$/;
+            var MESSAGE = /^(\d*\D+\d*)+$/; ///^(\d*\D+\d*)+$/
+            var MESSAGE2 = /<\/?[A-Za-zа-я]+[^>]*>/g; //tags
+            
+            
+            if(MESSAGE.test(f.message.value) && !MESSAGE2.test(f.message.value)){
+                 message_s.style.color = "green";
+                 message_s.innerHTML = 'ОК_message';
+            }
+            else{
+                message_s.style.color = "red";
+                message_s.innerHTML = 'Error_message';
+                f.message.select();
+            }
+            
             
             if(PHONE.test(f.phone.value) || PHONE2.test(f.phone.value)){
                  number_s.style.color = "green";
@@ -107,11 +121,11 @@
             }
             
             
-            if(EMAIL.test(f.email.value)){
+            if(EMAIL.test(f.email.value) && f.email.value.length != 0){ // не обязательное поля для заполнения
                  email_s.style.color = "green";
                  email_s.innerHTML = 'ОК_email';
             }
-            else{
+            else if(f.email.value.length != 0){
                 email_s.style.color = "red";
                 email_s.innerHTML = 'Error_email';
                 f.email.select();
